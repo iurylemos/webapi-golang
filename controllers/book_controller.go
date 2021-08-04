@@ -40,3 +40,31 @@ func ShowBook(c *gin.Context) {
 
 	c.JSON(200, book)
 }
+
+func CreateBook(c *gin.Context) {
+	db := database.GetDataBase()
+
+	var book models.Book
+
+	err := c.ShouldBindJSON(&book)
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "Cannot bind JSON " + err.Error(),
+		})
+
+		return
+	}
+
+	err = db.Create(&book).Error
+
+	if err != nil {
+		c.JSON(400, gin.H{
+			"error": "Cannot create book " + err.Error(),
+		})
+
+		return
+	}
+
+	c.JSON(200, book)
+}
