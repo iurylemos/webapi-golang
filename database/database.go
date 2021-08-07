@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/iurylemos/webapi-golang/database/migrations"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -26,6 +27,8 @@ func StartDB() {
 	config.SetMaxIdleConns(10)
 	config.SetMaxIdleConns(100)
 	config.SetConnMaxLifetime(time.Hour)
+
+	migrations.RunMigrations(db)
 }
 
 // Method to get db and create only instance
