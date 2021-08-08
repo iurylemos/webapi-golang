@@ -16,6 +16,10 @@ func ConfigRoutes(router *gin.Engine) *gin.Engine {
 			books.GET("/", controllers.ShowBooks)
 			books.POST("/", controllers.CreateBook)
 		}
+		user := main.Group("user")
+		{
+			user.POST("/", controllers.CreateUser)
+		}
 	}
 
 	return router
